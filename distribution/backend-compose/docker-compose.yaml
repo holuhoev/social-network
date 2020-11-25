@@ -1,0 +1,19 @@
+version: '2.3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: otus
+      MYSQL_USER: otus
+      MYSQL_PASSWORD: otus
+    ports:
+      - 127.0.0.1:3306:3306
+
+volumes:
+  mysql_data:
+    driver: local
