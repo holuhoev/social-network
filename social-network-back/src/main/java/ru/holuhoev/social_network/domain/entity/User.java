@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -20,7 +20,7 @@ public class User {
     @Nonnull
     private final String lastName;
     @Nonnull
-    private final LocalDateTime birthDate;
+    private final LocalDate birthDate;
     @Nonnull
     private final String interests;
     @Nonnull

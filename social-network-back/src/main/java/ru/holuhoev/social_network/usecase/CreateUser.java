@@ -19,7 +19,7 @@ public class CreateUser {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User createUser(@Nonnull final User user) {
+    public User create(@Nonnull final User user) {
 
         if (userRepository.loadOptByUsername(user.getUsername()).isPresent()) {
             throw new AppRuntimeException(OtusErrorCode.USER_ALREADY_EXISTS);
