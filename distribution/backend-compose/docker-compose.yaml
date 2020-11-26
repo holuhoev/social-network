@@ -8,11 +8,25 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: otus
-      MYSQL_USER: otus
-      MYSQL_PASSWORD: otus
+      MYSQL_DATABASE: social_network
+      MYSQL_USER: social_network
+      MYSQL_PASSWORD: social_network
     ports:
       - 127.0.0.1:3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+  mysql_social_network_flyway:
+    image: flyway/flyway:7.3.0-alpine
+    command: -url=jdbc:mysql://mysql:3306/social_network -user=social_network -password=social_network -connectRetries=15 migrate
+    volumes:
+    - ../../flyway:/flyway/sql
+    depends_on:
+      mysql:
+        condition: service_healthy
+
 
 volumes:
   mysql_data:
