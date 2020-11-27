@@ -1,7 +1,7 @@
-package ru.holuhoev.social_network.domain.port;
+package ru.holuhoev.social_network.core.domain.port;
 
 
-import ru.holuhoev.social_network.domain.entity.Friend;
+import ru.holuhoev.social_network.core.domain.entity.Friend;
 
 import javax.annotation.Nonnull;
 import java.util.List;

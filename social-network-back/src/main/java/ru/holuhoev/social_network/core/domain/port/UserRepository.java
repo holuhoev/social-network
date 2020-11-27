@@ -1,6 +1,6 @@
-package ru.holuhoev.social_network.domain.port;
+package ru.holuhoev.social_network.core.domain.port;
 
-import ru.holuhoev.social_network.domain.entity.User;
+import ru.holuhoev.social_network.core.domain.entity.User;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -18,4 +18,9 @@ public interface UserRepository {
     @Nonnull
     List<User> loadFriendUsers(@Nonnull final UUID userId);
 
+    @Nonnull
+    List<User> loadAll();
+
+    @Nonnull
+    User loadById(UUID userId);
 }

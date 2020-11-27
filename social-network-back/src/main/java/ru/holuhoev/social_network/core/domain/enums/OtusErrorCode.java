@@ -1,4 +1,4 @@
-package ru.holuhoev.social_network.domain.enums;
+package ru.holuhoev.social_network.core.domain.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

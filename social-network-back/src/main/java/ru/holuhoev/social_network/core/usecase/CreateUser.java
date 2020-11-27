@@ -1,13 +1,13 @@
-package ru.holuhoev.social_network.usecase;
+package ru.holuhoev.social_network.core.usecase;
 
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.holuhoev.social_network.domain.entity.User;
-import ru.holuhoev.social_network.domain.enums.OtusErrorCode;
-import ru.holuhoev.social_network.domain.exception.AppRuntimeException;
-import ru.holuhoev.social_network.domain.port.UserRepository;
+import ru.holuhoev.social_network.core.domain.entity.User;
+import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.exception.AppRuntimeException;
+import ru.holuhoev.social_network.core.domain.port.UserRepository;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;

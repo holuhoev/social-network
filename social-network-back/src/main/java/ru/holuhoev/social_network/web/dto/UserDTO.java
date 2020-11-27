@@ -1,4 +1,4 @@
-package ru.holuhoev.social_network.domain.entity;
+package ru.holuhoev.social_network.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,12 +9,11 @@ import java.util.UUID;
 
 @Getter
 @AllArgsConstructor
-public class User {
+public class UserDTO {
+    @Nonnull
     private final UUID userId;
     @Nonnull
     private final String username;
-    @Nonnull
-    private final String password;
     @Nonnull
     private final String firstName;
     @Nonnull

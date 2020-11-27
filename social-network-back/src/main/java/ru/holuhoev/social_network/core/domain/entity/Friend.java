@@ -1,4 +1,4 @@
-package ru.holuhoev.social_network.domain.entity;
+package ru.holuhoev.social_network.core.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

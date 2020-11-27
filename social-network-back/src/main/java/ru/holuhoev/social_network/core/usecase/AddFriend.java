@@ -1,11 +1,11 @@
-package ru.holuhoev.social_network.usecase;
+package ru.holuhoev.social_network.core.usecase;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.holuhoev.social_network.domain.entity.Friend;
-import ru.holuhoev.social_network.domain.enums.OtusErrorCode;
-import ru.holuhoev.social_network.domain.exception.AppRuntimeException;
-import ru.holuhoev.social_network.domain.port.FriendRepository;
+import ru.holuhoev.social_network.core.domain.entity.Friend;
+import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.exception.AppRuntimeException;
+import ru.holuhoev.social_network.core.domain.port.FriendRepository;
 
 import javax.annotation.Nonnull;
 

@@ -1,6 +1,6 @@
-package ru.holuhoev.social_network.domain.exception;
+package ru.holuhoev.social_network.core.domain.exception;
 
-import ru.holuhoev.social_network.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
