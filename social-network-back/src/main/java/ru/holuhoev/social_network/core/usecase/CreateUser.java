@@ -33,11 +33,14 @@ public class CreateUser {
                 encodedPassword,
                 user.getFirstName(),
                 user.getLastName(),
-                user.getBirthDate(),
+                user.getAge(),
                 user.getInterests(),
-                user.getCity()
+                user.getCity(),
+                user.getCreateTs()
         );
 
-        return userRepository.create(userToCreate);
+        userRepository.create(userToCreate);
+
+        return userToCreate;
     }
 }

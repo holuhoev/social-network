@@ -10,10 +10,9 @@ import java.util.UUID;
 public interface UserRepository {
 
     @Nonnull
-    Optional<User> loadOptByUsername(@Nonnull final String login);
+    Optional<User> loadOptByUsername(@Nonnull final String username);
 
-    @Nonnull
-    User create(@Nonnull final User user);
+    void create(@Nonnull final User user);
 
     @Nonnull
     List<User> loadFriendUsers(@Nonnull final UUID userId);
@@ -22,5 +21,5 @@ public interface UserRepository {
     List<User> loadAll();
 
     @Nonnull
-    User loadById(UUID userId);
+    User loadById(@Nonnull final UUID userId);
 }

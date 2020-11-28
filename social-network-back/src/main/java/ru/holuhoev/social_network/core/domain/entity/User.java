@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,10 +19,11 @@ public class User {
     private final String firstName;
     @Nonnull
     private final String lastName;
-    @Nonnull
-    private final LocalDate birthDate;
+    private final int age;
     @Nonnull
     private final String interests;
     @Nonnull
     private final String city;
+    @Nonnull
+    private final LocalDateTime createTs;
 }

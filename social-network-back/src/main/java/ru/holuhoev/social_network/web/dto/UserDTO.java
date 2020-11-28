@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
@@ -18,8 +17,7 @@ public class UserDTO {
     private final String firstName;
     @Nonnull
     private final String lastName;
-    @Nonnull
-    private final LocalDate birthDate;
+    private final int age;
     @Nonnull
     private final String interests;
     @Nonnull

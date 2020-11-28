@@ -6,6 +6,8 @@ import ru.holuhoev.social_network.web.dto.UserDTO;
 import ru.holuhoev.social_network.web.dto.input.CreateUserInput;
 
 import javax.annotation.Nonnull;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +21,10 @@ public class UserConverter {
                 user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getBirthDate(),
+                user.getAge(),
                 user.getInterests(),
-                user.getCity()
+                user.getCity(),
+                LocalDateTime.now(Clock.systemUTC())
         );
     }
 
@@ -32,7 +35,7 @@ public class UserConverter {
                 user.getUsername(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getBirthDate(),
+                user.getAge(),
                 user.getInterests(),
                 user.getCity()
         );

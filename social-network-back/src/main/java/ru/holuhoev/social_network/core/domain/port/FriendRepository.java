@@ -9,11 +9,8 @@ import java.util.UUID;
 
 public interface FriendRepository {
 
-    boolean existsByUserIds(@Nonnull final UUID firstUserId,@Nonnull final UUID secondUserId);
+    boolean existsByUserIds(@Nonnull final UUID firstUserId, @Nonnull final UUID secondUserId);
 
-    @Nonnull
-    Friend create(@Nonnull final Friend friend);
+    void create(@Nonnull final Friend friend);
 
-    @Nonnull
-    List<Friend> loadByUserId(@Nonnull final UUID userId);
 }

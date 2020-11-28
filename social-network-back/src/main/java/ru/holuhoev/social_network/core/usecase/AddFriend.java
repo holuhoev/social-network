@@ -15,11 +15,11 @@ public class AddFriend {
 
     private final FriendRepository friendRepository;
 
-    public Friend addFriend(@Nonnull final Friend friend) {
+    public void addFriend(@Nonnull final Friend friend) {
         if (friendRepository.existsByUserIds(friend.getFromUserId(), friend.getToUserId())) {
             throw new AppRuntimeException(OtusErrorCode.FRIEND_ALREADY_EXISTS);
         }
 
-        return friendRepository.create(friend);
+         friendRepository.create(friend);
     }
 }

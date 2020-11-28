@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
@@ -17,8 +16,7 @@ public class CreateUserInput {
     private String firstName;
     @Nonnull
     private String lastName;
-    @Nonnull
-    private LocalDate birthDate;
+    private int age;
     @Nonnull
     private String password;
     @Nonnull

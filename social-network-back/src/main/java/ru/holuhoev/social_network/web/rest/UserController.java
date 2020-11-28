@@ -34,7 +34,7 @@ public class UserController {
     private final UserConverter userConverter;
 
     @Transactional
-    @PostMapping("/register")
+    @PostMapping(path = "/register")
     public BaseDTO<UserDTO> registerUser(@RequestBody @Nonnull final CreateUserInput createUserInput) {
 
         final User user = userConverter.convertFromInput(createUserInput);
