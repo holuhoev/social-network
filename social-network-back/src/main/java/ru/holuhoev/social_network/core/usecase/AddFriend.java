@@ -3,7 +3,7 @@ package ru.holuhoev.social_network.core.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.holuhoev.social_network.core.domain.entity.Friend;
-import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.enums.AppErrorCode;
 import ru.holuhoev.social_network.core.domain.exception.AppRuntimeException;
 import ru.holuhoev.social_network.core.domain.port.FriendRepository;
 
@@ -17,7 +17,7 @@ public class AddFriend {
 
     public void addFriend(@Nonnull final Friend friend) {
         if (friendRepository.existsByUserIds(friend.getFromUserId(), friend.getToUserId())) {
-            throw new AppRuntimeException(OtusErrorCode.FRIEND_ALREADY_EXISTS);
+            throw new AppRuntimeException(AppErrorCode.FRIEND_ALREADY_EXISTS);
         }
 
          friendRepository.create(friend);

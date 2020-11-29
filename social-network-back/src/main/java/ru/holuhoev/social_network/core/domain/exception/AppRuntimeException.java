@@ -1,32 +1,32 @@
 package ru.holuhoev.social_network.core.domain.exception;
 
-import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.enums.AppErrorCode;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class AppRuntimeException extends RuntimeException {
     private static final long serialVersionUID = -4878979185454430827L;
-    private final OtusErrorCode otusErrorCode;
+    private final AppErrorCode appErrorCode;
 
     public AppRuntimeException(
-            @Nonnull final OtusErrorCode otusErrorCode,
+            @Nonnull final AppErrorCode appErrorCode,
             @Nullable final String message,
             @Nullable final Throwable cause
     ) {
         super(message, cause);
-        this.otusErrorCode = otusErrorCode;
+        this.appErrorCode = appErrorCode;
     }
 
-    public AppRuntimeException(@Nonnull final OtusErrorCode otusErrorCode) {
-        this(otusErrorCode, null, null);
+    public AppRuntimeException(@Nonnull final AppErrorCode appErrorCode) {
+        this(appErrorCode, null, null);
     }
 
-    public AppRuntimeException(@Nonnull final OtusErrorCode otusErrorCode, @Nullable final String message) {
-        this(otusErrorCode, message, null);
+    public AppRuntimeException(@Nonnull final AppErrorCode appErrorCode, @Nullable final String message) {
+        this(appErrorCode, message, null);
     }
 
-    public OtusErrorCode getOtusErrorCode() {
-        return otusErrorCode;
+    public AppErrorCode getAppErrorCode() {
+        return appErrorCode;
     }
 }

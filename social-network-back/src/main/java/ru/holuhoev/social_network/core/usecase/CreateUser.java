@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.holuhoev.social_network.core.domain.entity.User;
-import ru.holuhoev.social_network.core.domain.enums.OtusErrorCode;
+import ru.holuhoev.social_network.core.domain.enums.AppErrorCode;
 import ru.holuhoev.social_network.core.domain.exception.AppRuntimeException;
 import ru.holuhoev.social_network.core.domain.port.UserRepository;
 
@@ -22,7 +22,7 @@ public class CreateUser {
     public User create(@Nonnull final User user) {
 
         if (userRepository.loadOptByUsername(user.getUsername()).isPresent()) {
-            throw new AppRuntimeException(OtusErrorCode.USER_ALREADY_EXISTS);
+            throw new AppRuntimeException(AppErrorCode.USER_ALREADY_EXISTS);
         }
 
         final String encodedPassword = passwordEncoder.encode(user.getPassword());
