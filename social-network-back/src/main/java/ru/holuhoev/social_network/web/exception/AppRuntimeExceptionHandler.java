@@ -1,5 +1,6 @@
 package ru.holuhoev.social_network.web.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import ru.holuhoev.social_network.web.dto.base.ErrorDTO;
 
 import javax.annotation.Nonnull;
 
+@Slf4j
 @ControllerAdvice
 public class AppRuntimeExceptionHandler {
 
@@ -20,9 +22,9 @@ public class AppRuntimeExceptionHandler {
         final ErrorDTO error = new ErrorDTO(
                 RandomStringUtils.randomAlphanumeric(10),
                 exception.getAppErrorCode().name(),
-                exception.getMessage()
+                exception.getAppErrorCode().getDescription()
         );
-
+        log.error(error.toString(), exception);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                              .body(BaseDTO.error(error));
     }

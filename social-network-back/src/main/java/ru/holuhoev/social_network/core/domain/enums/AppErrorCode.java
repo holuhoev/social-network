@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AppErrorCode {
-    USER_ALREADY_EXISTS("Пользователь с логином уже существует"),
+    USER_ALREADY_EXISTS("Пользователь с таким логином уже существует"),
     FRIEND_ALREADY_EXISTS("Пользователь уже добавлен в друзья"),
 
 

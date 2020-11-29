@@ -22,8 +22,8 @@ public class AppRuntimeException extends RuntimeException {
         this(appErrorCode, null, null);
     }
 
-    public AppRuntimeException(@Nonnull final AppErrorCode appErrorCode, @Nullable final String message) {
-        this(appErrorCode, message, null);
+    public AppRuntimeException(@Nonnull final AppErrorCode appErrorCode, @Nullable final String logMessage) {
+        this(appErrorCode, logMessage, null);
     }
 
     public AppErrorCode getAppErrorCode() {

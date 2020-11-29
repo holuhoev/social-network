@@ -21,15 +21,20 @@ public class CreateUser {
 
     public User create(@Nonnull final User user) {
 
-        if (userRepository.loadOptByUsername(user.getUsername()).isPresent()) {
-            throw new AppRuntimeException(AppErrorCode.USER_ALREADY_EXISTS);
+        final String username = user.getUsername();
+
+        if (userRepository.loadOptByUsername(username).isPresent()) {
+            throw new AppRuntimeException(
+                    AppErrorCode.USER_ALREADY_EXISTS,
+                    String.format("User with username %s is already exists", username)
+            );
         }
 
         final String encodedPassword = passwordEncoder.encode(user.getPassword());
 
         final User userToCreate = new User(
                 UUID.randomUUID(),
-                user.getUsername(),
+                username,
                 encodedPassword,
                 user.getFirstName(),
                 user.getLastName(),
