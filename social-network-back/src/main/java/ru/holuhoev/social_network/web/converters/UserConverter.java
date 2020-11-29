@@ -3,7 +3,7 @@ package ru.holuhoev.social_network.web.converters;
 import org.springframework.stereotype.Component;
 import ru.holuhoev.social_network.core.domain.entity.User;
 import ru.holuhoev.social_network.web.dto.UserDTO;
-import ru.holuhoev.social_network.web.dto.input.CreateUserInput;
+import ru.holuhoev.social_network.web.dto.input.CreateUserInputDTO;
 
 import javax.annotation.Nonnull;
 import java.time.Clock;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class UserConverter {
     @Nonnull
-    public User convertFromInput(@Nonnull final CreateUserInput user) {
+    public User convertFromInput(@Nonnull final CreateUserInputDTO user) {
         return new User(
                 null,
                 user.getUsername(),

@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserInput {
+public class CreateUserInputDTO {
     @Nonnull
     private String username;
     @Nonnull

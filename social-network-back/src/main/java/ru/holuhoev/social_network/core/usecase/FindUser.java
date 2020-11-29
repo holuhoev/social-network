@@ -7,6 +7,7 @@ import ru.holuhoev.social_network.core.domain.port.UserRepository;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,5 +29,10 @@ public class FindUser {
     @Nonnull
     public User loadUserById(@Nonnull final UUID userId) {
         return userRepository.loadById(userId);
+    }
+
+    @Nonnull
+    public Optional<User> loadOptUserByUsername(@Nonnull final String username) {
+        return userRepository.loadOptByUsername(username);
     }
 }

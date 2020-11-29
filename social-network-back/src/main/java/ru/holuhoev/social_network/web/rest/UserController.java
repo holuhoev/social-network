@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.holuhoev.social_network.application.security.ClientInfoService;
 import ru.holuhoev.social_network.core.domain.entity.Friend;
 import ru.holuhoev.social_network.core.domain.entity.User;
 import ru.holuhoev.social_network.core.usecase.AddFriend;
@@ -17,7 +18,7 @@ import ru.holuhoev.social_network.core.usecase.FindUser;
 import ru.holuhoev.social_network.web.converters.UserConverter;
 import ru.holuhoev.social_network.web.dto.UserDTO;
 import ru.holuhoev.social_network.web.dto.base.BaseDTO;
-import ru.holuhoev.social_network.web.dto.input.CreateUserInput;
+import ru.holuhoev.social_network.web.dto.input.CreateUserInputDTO;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -32,10 +33,11 @@ public class UserController {
     private final AddFriend addFriend;
     private final FindUser findUser;
     private final UserConverter userConverter;
+    private final ClientInfoService clientInfoService;
 
     @Transactional
     @PostMapping(path = "/register")
-    public BaseDTO<UserDTO> registerUser(@RequestBody @Nonnull final CreateUserInput createUserInput) {
+    public BaseDTO<UserDTO> registerUser(@RequestBody @Nonnull final CreateUserInputDTO createUserInput) {
 
         final User user = userConverter.convertFromInput(createUserInput);
 
@@ -63,9 +65,9 @@ public class UserController {
         return BaseDTO.success(users);
     }
 
-    @GetMapping("/friends")
+    @GetMapping("/myFriends")
     public BaseDTO<List<UserDTO>> getMyFriends() {
-        final UUID userId = UUID.randomUUID();
+        final UUID userId = clientInfoService.loadClientInfo().getUserId();
 
         final List<UserDTO> users = userConverter.convertToDTOs(findUser.loadFriendsByUserId(userId));
 
@@ -75,7 +77,7 @@ public class UserController {
 
     @GetMapping("/currentUser")
     public BaseDTO<UserDTO> getCurrentUser() {
-        final UUID userId = UUID.randomUUID();
+        final UUID userId = clientInfoService.loadClientInfo().getUserId();
 
         final UserDTO user = userConverter.convertToDTO(findUser.loadUserById(userId));
 

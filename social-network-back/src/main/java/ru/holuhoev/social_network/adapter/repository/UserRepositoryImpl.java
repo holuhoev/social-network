@@ -57,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
                 "FROM users " +
                 "         JOIN friends f2 ON users.user_id = f2.to_user_id " +
                 "WHERE from_user_id = user_id;",
-                new MapSqlParameterSource().addValue("user_id", userId),
+                new MapSqlParameterSource().addValue("user_id", userId.toString()),
                 this::mapRow
         );
     }
@@ -78,7 +78,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User loadById(@Nonnull final UUID userId) {
         return jdbcTemplate.query(
                 "SELECT * FROM users WHERE user_id = :user_id",
-                new MapSqlParameterSource().addValue("user_id", userId),
+                new MapSqlParameterSource().addValue("user_id", userId.toString()),
                 this::mapRow
         ).get(0);
     }
