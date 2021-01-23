@@ -35,25 +35,19 @@ public class FakeUsersGenerator {
 
         final int batchesCount = count / batchSize;
 
-        final List<CompletableFuture<?>> tasks = IntStream
-                .range(0, batchesCount)
-                .mapToObj(i -> CompletableFuture.supplyAsync(() -> {
-                    generateAndSave(batchSize);
-                    log.info("Done {} % ({})", o.format(((double) i / batchesCount) * 100), i);
-                    return null;
-                }).exceptionally(throwable -> {
-                    log.error("Failed to generate users:", throwable);
-                    return null;
-                }))
-                .collect(Collectors.toList());
+        log.info("Run {} tasks", batchesCount);
+        CompletableFuture.supplyAsync(() -> {
+            log.info("Generate started");
+            IntStream.range(0, batchesCount)
+                     .forEach((i) -> {
+                         generateAndSave(batchSize);
+                         log.info("Done {} % ({})", o.format(((double) i / batchesCount) * 100), i);
+                     });
 
-        log.info("Prepare {} tasks", tasks.size());
+            log.info("Generate Done");
+            return null;
+        });
 
-        CompletableFuture
-                .allOf(tasks.toArray(new CompletableFuture[0]))
-                .thenRun(() ->
-                        log.info("Generate Done")
-                );
     }
 
 

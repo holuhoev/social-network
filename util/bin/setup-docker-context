@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+set -x
+
+docker context use default
+docker context rm otus-yandex
+docker context create otus-yandex \
+  --docker "host=ssh://otus-user@84.201.173.203" \
+# end of command
+docker context use otus-yandex
+docker ps;

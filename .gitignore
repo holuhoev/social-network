@@ -3,6 +3,7 @@ dev.properties
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
+*.jar
 
 ### STS ###
 .apt_generated

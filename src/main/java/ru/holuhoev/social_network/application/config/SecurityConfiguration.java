@@ -23,6 +23,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String SWAGGER_RESOURCES = "/swagger-resources/**";
     private static final String CREATE_USER = "/users/register";
     private static final String LOGIN_ENDPOINT = "/login";
+    private static final String ACTUATOR = "/actuator/**";
+    private static final String CONFIG_PROPS = "/configprops";
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -41,7 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 SWAGGER_API,
                 SWAGGER_UI,
                 SWAGGER_UI_HTML,
-                SWAGGER_RESOURCES
+                SWAGGER_RESOURCES,
+                ACTUATOR,
+                CONFIG_PROPS
         };
 
 
