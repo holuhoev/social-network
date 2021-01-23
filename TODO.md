@@ -1,7 +1,7 @@
 
 ### TODO:
 - ~~ExceptionHandler~~ 
-- Spring Security
+- ~~Spring Security~~
 - Frontend
 
 
