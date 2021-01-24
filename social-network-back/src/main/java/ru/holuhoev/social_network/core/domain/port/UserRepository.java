@@ -18,7 +18,7 @@ public interface UserRepository {
     List<User> loadFriendUsers(@Nonnull final UUID userId);
 
     @Nonnull
-    List<User> loadAll();
+    List<User> loadUsers();
 
     @Nonnull
     User loadById(@Nonnull final UUID userId);

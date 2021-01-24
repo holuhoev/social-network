@@ -23,8 +23,8 @@ docker context use default
 #docker login -u holuhoev -p 7134817
 
 docker build -t otus-hl-db-migration "${DISTRIBUTION_DIR}/flyway-image"
-mvn clean install -T1C -DskipTests -f "${PROJECT_DIR}/pom.xml"
-cp "${PROJECT_DIR}/target/social-network-back-0.0.1-SNAPSHOT.jar" "${DISTRIBUTION_DIR}/spring-boot-app-images/backend/"
+mvn clean install -T1C -DskipTests -f "${PROJECT_DIR}/social-network-back/pom.xml"
+cp "${PROJECT_DIR}/social-network-back/target/social-network-back-0.0.1-SNAPSHOT.jar" "${DISTRIBUTION_DIR}/spring-boot-app-images/backend/"
 docker build -t otus-hl-backend "${DISTRIBUTION_DIR}/spring-boot-app-images/backend"
 
 
@@ -36,6 +36,7 @@ docker push "holuhoev/otus-hl-db-migration:${DOCKER_TAG}"
 
 cd "${MY_DIR}"
 docker context use otus-yandex
+ssh-add -K /Users/a17636999/.ssh/yandex-cloud
 docker-compose down;
 docker-compose up -d;
 docker-compose logs --follow mysql_social_network_flyway;

@@ -70,9 +70,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Nonnull
     @Override
-    public List<User> loadAll() {
+    public List<User> loadUsers() {
         return jdbcTemplate.query(
-                "SELECT * FROM users",
+                "SELECT * FROM users LIMIT 30",
                 this::mapRow
         );
     }

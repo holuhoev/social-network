@@ -22,8 +22,8 @@ public class FindUser {
     }
 
     @Nonnull
-    public List<User> loadAllUsers() {
-        return userRepository.loadAll();
+    public List<User> loadUsers() {
+        return userRepository.loadUsers();
     }
 
     @Nonnull

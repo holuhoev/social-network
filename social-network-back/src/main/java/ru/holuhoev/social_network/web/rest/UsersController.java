@@ -27,7 +27,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
-public class UserController {
+public class UsersController {
 
     private final CreateUser createUser;
     private final AddFriend addFriend;
@@ -60,7 +60,7 @@ public class UserController {
 
     @GetMapping
     public BaseDTO<List<UserDTO>> getAllUsers() {
-        final List<UserDTO> users = userConverter.convertToDTOs(findUser.loadAllUsers());
+        final List<UserDTO> users = userConverter.convertToDTOs(findUser.loadUsers());
 
         return BaseDTO.success(users);
     }
