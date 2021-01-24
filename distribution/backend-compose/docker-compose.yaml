@@ -8,9 +8,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: social_network
-      MYSQL_USER: social_network
-      MYSQL_PASSWORD: social_network
+      MYSQL_DATABASE: ru.holuhoev.social_network
+      MYSQL_USER: ru.holuhoev.social_network
+      MYSQL_PASSWORD: ru.holuhoev.social_network
     ports:
       - 127.0.0.1:3306:3306
     healthcheck:
@@ -20,7 +20,7 @@ services:
       retries: 15
   mysql_social_network_flyway:
     image: flyway/flyway:7.3.0-alpine
-    command: -url=jdbc:mysql://mysql:3306/social_network -user=social_network -password=social_network -connectRetries=15 migrate
+    command: -url=jdbc:mysql://mysql:3306/ru.holuhoev.social_network -user=ru.holuhoev.social_network -password=ru.holuhoev.social_network -connectRetries=15 migrate
     volumes:
     - ../../flyway:/flyway/sql
     depends_on:

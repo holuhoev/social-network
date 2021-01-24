@@ -2,8 +2,8 @@
 ### TODO:
 - ~~ExceptionHandler~~ 
 - ~~Spring Security~~
-- Frontend
-
+- HW1: Frontend ``git checkout``
+- HW2: Indices and wrk load testing
 
 ### Swagger
 http://localhost:8080/swagger-ui.html#

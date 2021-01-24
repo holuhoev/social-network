@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import ru.holuhoev.social_network.application.security.jwt.JwtTokenConfigurationProperties;
 
 @SpringBootApplication(
-        scanBasePackages = {"ru.holuhoev.social_network"}
+        scanBasePackages = {"ru.holuhoev.ru.holuhoev.social_network"}
 )
 @EnableConfigurationProperties(value = {
         JwtTokenConfigurationProperties.class

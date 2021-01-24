@@ -2,7 +2,7 @@
 set -e
 set -x
 
-COUNT=500000
+COUNT=35400
 
 curl -X POST "http://84.201.173.203:8080/fake/users/generate" \
   -H "accept: */*" \
