@@ -1,14 +1,9 @@
 // import cookie from "react-cookies";
 
-const backend_url = 'http://localhost:8080';
-
 const buildHeaders = () => {
 
   return {
-    Accept: 'application/json',
-    'Content-Type': 'text/plain',
-    'Authorization': extractToken(),
-    'X-Requested-With': 'XMLHttpRequest'
+    'Authorization': extractToken()
   }
 };
 
@@ -20,6 +15,6 @@ export const get = url => {
   return fetch(url, {
     method: 'GET',
     headers: buildHeaders()
-  });
+  }).then((response) => response.json());
 };
 

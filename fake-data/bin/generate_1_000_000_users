@@ -2,9 +2,10 @@
 set -e
 set -x
 
-COUNT=35400
+COUNT=1000
 
-curl -X POST "http://84.201.173.203:8080/fake/users/generate" \
+#84.201.173.203
+curl -X POST "http://localhost:8080/fake/users/generate" \
   -H "accept: */*" \
   -H "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJ1c2VyX2lkIjoiYWNkODMzN2QtNjgxNS00NWMxLWJkZDYtMDI3ZGIzMmM5NDNmIiwiZmlyc3RfbmFtZSI6InN0cmluZyIsImxhc3RfbmFtZSI6InN0cmluZyIsImlhdCI6MTYxMTQyMTc2MSwiZXhwIjoxNjEyNDIxNzYxfQ.s9bTQZ147NYIK40wc4UsgRX44207j5oVvXnOV9GAaSg" \
   -H "Content-Type: application/json" \
