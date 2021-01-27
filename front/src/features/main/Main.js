@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Main.css';
 import { Breadcrumb, Layout, Menu, Typography } from 'antd';
@@ -6,9 +6,10 @@ import { Breadcrumb, Layout, Menu, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Users } from '../users/Users';
 import {
-  selectCurrentPage,
-  pageSelected
+  pageSelected,
+  selectCurrentPage
 } from '../application/applicationSlice';
+import { fetchClientInfo, selectClientInfoStatus } from '../auth/authSlice';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -16,6 +17,13 @@ const { Title } = Typography;
 function Main() {
   const dispatch = useDispatch();
   const currentPage = useSelector(selectCurrentPage);
+  const clientInfoStatus = useSelector(selectClientInfoStatus);
+
+  useEffect(() => {
+    if (clientInfoStatus === 'idle') {
+      dispatch(fetchClientInfo())
+    }
+  }, [clientInfoStatus]);
 
   const handleClickMenu = e => {
     dispatch(pageSelected(e.key))

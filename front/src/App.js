@@ -3,14 +3,14 @@ import Main from './features/main/Main';
 import { useSelector } from 'react-redux';
 
 import { LoginForm } from './features/auth/LoginForm';
-import { selectToken } from './features/auth/authSlice';
+import { selectIsLoggedIn } from './features/auth/authSlice';
 
 function App() {
 
-  const token = useSelector(selectToken)
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
-    !token ? <LoginForm/> : <Main/>
+    isLoggedIn ? <Main/> : <LoginForm/>
   );
 }
 

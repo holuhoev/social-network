@@ -14,7 +14,7 @@ export function Users() {
     if (usersStatus === 'idle') {
       dispatch(fetchUsers())
     }
-  }, [usersStatus, users]);
+  }, [usersStatus]);
 
   const [selectedUserId, setSelectedUserId] = useState('');
   const [visible, setVisible] = useState(false);

@@ -22,7 +22,7 @@ export const usersSlice = createSlice({
     },
     [fetchUsers.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      state.users = state.users.concat(action.payload);
+      state.users = action.payload;
     },
     [fetchUsers.rejected]: (state, action) => {
       state.status = 'failed';

@@ -1,12 +1,16 @@
-const commonHeaders = () => {
+const commonHeaders = (withoutAuth = false) => {
+
+  if (withoutAuth) {
+    return {};
+  }
 
   return {
-    'Authorization': extractToken()
+    'Authorization':  extractToken()
   }
 };
 
-const extractToken = () => {
-  return 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJ1c2VyX2lkIjoiYWNkODMzN2QtNjgxNS00NWMxLWJkZDYtMDI3ZGIzMmM5NDNmIiwiZmlyc3RfbmFtZSI6InN0cmluZyIsImxhc3RfbmFtZSI6InN0cmluZyIsImlhdCI6MTYxMTQyMTc2MSwiZXhwIjoxNjEyNDIxNzYxfQ.s9bTQZ147NYIK40wc4UsgRX44207j5oVvXnOV9GAaSg';
+export const extractToken = () => {
+  return localStorage.getItem('accessToken');
 };
 
 export const get = url => {
@@ -16,11 +20,11 @@ export const get = url => {
   }).then((response) => response.json());
 };
 
-export const post = (url, body) => {
+export const post = (url, body, withoutAuth = false) => {
   return fetch(url, {
     method: 'POST',
     headers: {
-      ...commonHeaders(),
+      ...commonHeaders(withoutAuth),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
