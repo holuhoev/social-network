@@ -1,29 +1,38 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Main.css';
 import { Breadcrumb, Layout, Menu, Typography } from 'antd';
 
-import { UserOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  UsergroupAddOutlined,
+  UserAddOutlined
+} from '@ant-design/icons';
 import { Users } from '../users/Users';
 import {
   pageSelected,
   selectCurrentPage
 } from '../application/applicationSlice';
-import { fetchClientInfo, selectClientInfoStatus } from '../auth/authSlice';
+import { Profile } from '../profile/Profile';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
+function renderCurrentPage(currentPage) {
+  switch (currentPage) {
+    case 'Profile':
+      return <Profile/>;
+    case 'Friends':
+      return <div>TBD</div>;
+    case 'Users':
+    default:
+      return <Users/>;
+  }
+}
+
 function Main() {
   const dispatch = useDispatch();
   const currentPage = useSelector(selectCurrentPage);
-  const clientInfoStatus = useSelector(selectClientInfoStatus);
-
-  useEffect(() => {
-    if (clientInfoStatus === 'idle') {
-      dispatch(fetchClientInfo())
-    }
-  }, [clientInfoStatus]);
 
   const handleClickMenu = e => {
     dispatch(pageSelected(e.key))
@@ -42,11 +51,14 @@ function Main() {
               mode="inline"
               onClick={handleClickMenu}
             >
-              <Menu.Item key='Users' icon={<UserOutlined/>}>
+              <Menu.Item key='Users' icon={<UserAddOutlined/>}>
                 Users
               </Menu.Item>
-              <Menu.Item key='Friends' icon={<UserOutlined/>}>
+              <Menu.Item key='Friends' icon={<UsergroupAddOutlined/>}>
                 Friends
+              </Menu.Item>
+              <Menu.Item key='Profile' icon={<UserOutlined/>}>
+                Profile
               </Menu.Item>
             </Menu>
           </Sider>
@@ -55,7 +67,7 @@ function Main() {
               <Breadcrumb style={{ margin: '16px 0' }}>
                 <Breadcrumb.Item>{currentPage}</Breadcrumb.Item>
               </Breadcrumb>
-              <Users/>
+              {renderCurrentPage(currentPage)}
             </Content>
             <Footer style={{ textAlign: 'center' }}>
               Social Network for OTUS homework
