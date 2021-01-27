@@ -6,7 +6,8 @@ import { Breadcrumb, Layout, Menu, Typography } from 'antd';
 import {
   UserOutlined,
   UsergroupAddOutlined,
-  UserAddOutlined
+  UserAddOutlined,
+  SmileFilled
 } from '@ant-design/icons';
 import { Users } from '../users/Users';
 import {
@@ -51,13 +52,13 @@ function Main() {
               mode="inline"
               onClick={handleClickMenu}
             >
-              <Menu.Item key='Users' icon={<UserAddOutlined/>}>
+              <Menu.Item key='Users' icon={<UserOutlined/>}>
                 Users
               </Menu.Item>
               <Menu.Item key='Friends' icon={<UsergroupAddOutlined/>}>
                 Friends
               </Menu.Item>
-              <Menu.Item key='Profile' icon={<UserOutlined/>}>
+              <Menu.Item key='Profile' icon={<SmileFilled />}>
                 Profile
               </Menu.Item>
             </Menu>
