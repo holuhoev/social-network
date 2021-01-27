@@ -24,15 +24,17 @@ export function Users() {
     setVisible(true);
   };
 
-  const onClose = () => setVisible(false);
+  const onClose = () => {
+    console.log("onClose");
+    setVisible(false)
+  };
 
   return (
     <Fragment>
-      <div style={{ height: 800, overflow: 'auto' }}>
+      <div style={{ height: 750, overflow: 'auto' }}>
         <List
           itemLayout="vertical"
           size="medium"
-          // pagination={{ pageSize: 8 }}
           dataSource={users}
           renderItem={user => (
             <List.Item key={user.userId}>
@@ -57,6 +59,7 @@ export function Users() {
         userId={selectedUserId}
         visible={visible}
         onClose={onClose}
+        showAddFriendButton={true}
       />
     </Fragment>
 

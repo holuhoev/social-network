@@ -16,10 +16,6 @@ public class AddFriend {
     private final FriendRepository friendRepository;
 
     public void addFriend(@Nonnull final Friend friend) {
-        if (friendRepository.existsByUserIds(friend.getFromUserId(), friend.getToUserId())) {
-            throw new AppRuntimeException(AppErrorCode.FRIEND_ALREADY_EXISTS);
-        }
-
          friendRepository.create(friend);
     }
 }

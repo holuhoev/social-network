@@ -23,6 +23,7 @@ import ru.holuhoev.social_network.web.dto.input.CreateUserInputDTO;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -50,19 +51,24 @@ public class UsersController {
 
     @Transactional
     @PostMapping("/addFriend/{userId}")
-    public ResponseEntity<Boolean> addFriend(@PathVariable @Nonnull final UUID userId) {
-        final UUID fromUserId = UUID.randomUUID();
+    public BaseDTO<Boolean> addFriend(@PathVariable @Nonnull final UUID userId) {
+        final UUID fromUserId = clientInfoService.loadClientInfo().getUserId();
 
         addFriend.addFriend(new Friend(fromUserId, userId));
 
-        return ResponseEntity.ok(true);
+        return BaseDTO.success(true);
     }
 
     @GetMapping
     public BaseDTO<List<UserDTO>> getAllUsers() {
         final List<UserDTO> users = userConverter.convertToDTOs(findUser.loadUsers());
+        final UUID currentUserId = clientInfoService.loadClientInfo().getUserId();
 
-        return BaseDTO.success(users);
+        return BaseDTO.success(
+                users.stream()
+                     .filter(userDTO -> !userDTO.getUserId().equals(currentUserId))
+                     .collect(Collectors.toList())
+        );
     }
 
     @GetMapping("/myFriends")

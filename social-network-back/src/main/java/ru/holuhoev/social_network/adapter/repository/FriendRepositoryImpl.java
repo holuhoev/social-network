@@ -33,11 +33,15 @@ public class FriendRepositoryImpl implements FriendRepository {
 
     @Override
     public void create(@Nonnull final Friend friend) {
+        final String fromUserIdStr = friend.getFromUserId().toString();
+        final String toUserIdStr = friend.getToUserId().toString();
         jdbcTemplate.update(
                 "INSERT INTO friends (from_user_id, to_user_id) VALUES (:from_user_id, :to_user_id)",
                 new MapSqlParameterSource()
-                        .addValue("from_user_id", friend.getFromUserId())
-                        .addValue("to_user_id", friend.getToUserId())
+                .addValue("from_user_id", fromUserIdStr)
+                .addValue("to_user_id", toUserIdStr)
+//                        .addValue("from_user_id", "0000b6f5-0995-4e0b-964e-e4f47f909200")
+//                        .addValue("to_user_id", "00978b20-0c04-42b9-b335-51e20611c118")
         );
     }
 }
