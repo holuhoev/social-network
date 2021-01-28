@@ -4,6 +4,7 @@ import { fetchUsers, selectAllUsers } from './usersSlice';
 import { Avatar, List } from 'antd';
 import UserProfile from './UserProfile';
 
+// TODO: 3. Вынести в reusable функцию component
 export function Users() {
   const users = useSelector(selectAllUsers);
   const usersStatus = useSelector(state => state.users.status);
