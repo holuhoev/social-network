@@ -4,6 +4,7 @@ services:
   mysql:
     image: mysql:5.7
     volumes:
+      - ../mysql-image/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
       - mysql_data:/var/lib/mysql
     restart: always
     environment:
@@ -22,10 +23,16 @@ services:
     image: flyway/flyway:7.3.0-alpine
     command: -url=jdbc:mysql://mysql:3306/social_network -user=social_network -password=social_network -connectRetries=15 migrate
     volumes:
-    - ../flyway-image/sql:/flyway/sql
+      - ../flyway-image/sql:/flyway/sql
     depends_on:
       mysql:
         condition: service_healthy
+  tarantool:
+    image: otus-hl-tarantool
+    ports:
+      - 3301:3301
+  mysql_tarantool_replicator:
+    image: otus-hl-mysql-tarantool-replicator
 
 
 volumes:
