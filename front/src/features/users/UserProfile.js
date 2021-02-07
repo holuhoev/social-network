@@ -2,29 +2,22 @@ import React from 'react';
 
 import { Button, Drawer, Skeleton } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFriend, selectAddFriendStatus, selectUserById } from './usersSlice';
-import { UserAddOutlined, CheckOutlined } from '@ant-design/icons';
+import { addFriend, removeFriend, selectAddFriendData } from './usersSlice';
+import { DeleteOutlined, UserAddOutlined } from '@ant-design/icons';
 
-const UserProfile = ({ userId, visible, onClose, showAddFriendButton }) => {
+function renderButton(loading, disabled, onClick, title, icon) {
+  return (<Button
+    icon={icon}
+    loading={loading}
+    disabled={disabled}
+    onClick={onClick}
+  >
+    {title}
+  </Button>);
+}
 
-  // TODO: 1. Вынести onClose в redux. Чтобы по закрытию удалять содержимо
-  //  редюсера "добавить в друзья"
 
-  // TODO: 2. При открытии вкладки пользователя, делать запрос. В котором
-  //  вернется чел в друзьях или нет
-
-  const user = useSelector(selectUserById(userId));
-  const addFriendStatus = useSelector(selectAddFriendStatus);
-
-  const dispatch = useDispatch();
-  const onAddFriendClick = () => {
-    dispatch(addFriend(userId))
-  };
-
-  if (!user) {
-    return null;
-  }
-
+function renderProfile(user, visible, onClose, button) {
   return (
     <Drawer
       destroyOnClose
@@ -39,24 +32,43 @@ const UserProfile = ({ userId, visible, onClose, showAddFriendButton }) => {
           <p>city - {user.city}</p>
           <p>interests - {user.interests}</p>
         </div>
-        {
-          showAddFriendButton &&
-          <Button
-            icon={
-              addFriendStatus === 'succeeded'
-                ? <CheckOutlined/>
-                : <UserAddOutlined/>
-            }
-            loading={addFriendStatus === 'loading'}
-            disabled={addFriendStatus !== 'idle'}
-            onClick={onAddFriendClick}
-          >
-            Add friend
-          </Button>
-        }
+        {button && button()}
       </Skeleton>
     </Drawer>
   )
-};
+}
 
-export default UserProfile;
+export const UserProfile = ({ userId, visible, onClose, selectUser }) => {
+
+  const user = useSelector(selectUser(userId));
+  const addFriendData = useSelector(selectAddFriendData(userId));
+  const dispatch = useDispatch();
+  const addFriendStatus = addFriendData ? addFriendData.addFriendStatus : 'idle';
+
+  if (!user) {
+    return null;
+  }
+
+
+  const onAddFriendClick = () => {
+    dispatch(addFriend(userId))
+  };
+  const onRemoveFriendClick = () => {
+    dispatch(removeFriend(userId))
+  };
+
+  const button = user.myFriend
+    ? () => renderButton(addFriendStatus === 'loading', addFriendStatus === 'loading', onRemoveFriendClick, 'Remove' +
+      ' friend',
+      <DeleteOutlined/>)
+    : () => renderButton(addFriendStatus === 'loading', addFriendStatus === 'loading', onAddFriendClick, 'Add friend',
+      <UserAddOutlined/>);
+
+
+  return renderProfile(
+    user,
+    visible,
+    onClose,
+    button
+  );
+};

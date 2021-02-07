@@ -20,6 +20,13 @@ export const get = url => {
   }).then((response) => response.json());
 };
 
+export const deleteReq = url => {
+  return fetch(url, {
+    method: 'DELETE',
+    headers: commonHeaders()
+  }).then((response) => response.json());
+};
+
 export const post = (url, body, withoutAuth = false) => {
   return fetch(url, {
     method: 'POST',

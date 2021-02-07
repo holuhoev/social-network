@@ -77,8 +77,7 @@ public class FakeUsersGenerator {
                 faker.name().lastName(),
                 faker.number().numberBetween(18, 45),
                 faker.job().keySkills(),
-                faker.address().city(),
-                LocalDateTime.now(Clock.systemUTC())
+                faker.address().city()
         );
     }
 }

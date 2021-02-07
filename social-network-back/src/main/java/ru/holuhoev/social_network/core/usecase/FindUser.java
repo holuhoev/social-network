@@ -3,7 +3,7 @@ package ru.holuhoev.social_network.core.usecase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.holuhoev.social_network.core.domain.entity.User;
-import ru.holuhoev.social_network.core.domain.port.UserRepository;
+import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 
 import javax.annotation.Nonnull;
 import java.util.List;

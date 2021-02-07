@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.holuhoev.social_network.core.domain.entity.User;
-import ru.holuhoev.social_network.core.domain.port.UserRepository;
+import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 
 import java.util.Optional;
 

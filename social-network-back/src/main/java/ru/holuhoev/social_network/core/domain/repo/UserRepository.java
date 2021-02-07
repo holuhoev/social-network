@@ -1,4 +1,4 @@
-package ru.holuhoev.social_network.core.domain.port;
+package ru.holuhoev.social_network.core.domain.repo;
 
 import ru.holuhoev.social_network.core.domain.entity.User;
 

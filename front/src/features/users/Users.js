@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, selectAllUsers } from './usersSlice';
+import { fetchUsers, selectAllUsers, selectUserById } from './usersSlice';
 import { Avatar, List } from 'antd';
-import UserProfile from './UserProfile';
+import {UserProfile} from './UserProfile';
 
-// TODO: 3. Вынести в reusable функцию component
 export function Users() {
   const users = useSelector(selectAllUsers);
   const usersStatus = useSelector(state => state.users.status);
@@ -26,44 +25,49 @@ export function Users() {
   };
 
   const onClose = () => {
-    console.log("onClose");
     setVisible(false)
   };
 
   return (
     <Fragment>
-      <div style={{ height: 750, overflow: 'auto' }}>
-        <List
-          itemLayout="vertical"
-          size="medium"
-          dataSource={users}
-          renderItem={user => (
-            <List.Item key={user.userId}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  />
-                }
-                title={
-                  <a
-                    onClick={() => onSelect(user.userId)}>{user.username}
-                  </a>
-                }
-                description={user.firstName + ' ' + user.lastName}
-              />
-            </List.Item>
-          )}
-        />
-      </div>
+      {renderUserList(usersStatus ==='loading', users, onSelect)}
       <UserProfile
         userId={selectedUserId}
         visible={visible}
         onClose={onClose}
-        showAddFriendButton={true}
+        selectUser={selectUserById}
       />
     </Fragment>
 
 
   );
+}
+
+
+export function renderUserList(loading, users, onSelect) {
+  return (<div style={{ height: 750, overflow: 'auto' }}>
+    <List
+      loading={loading}
+      itemLayout="vertical"
+      size="medium"
+      dataSource={users}
+      renderItem={user => (
+        <List.Item key={user.userId}>
+          <List.Item.Meta
+            avatar={
+              <Avatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              />
+            }
+            title={
+              <a onClick={() => onSelect(user.userId)}>
+                {user.firstName + ' ' + user.lastName}
+              </a>
+            }
+            description={user.username}
+          />
+        </List.Item>
+      )}
+    />
+  </div>);
 }

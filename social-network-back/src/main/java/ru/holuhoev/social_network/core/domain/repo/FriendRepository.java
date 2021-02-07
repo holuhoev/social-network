@@ -1,4 +1,4 @@
-package ru.holuhoev.social_network.core.domain.port;
+package ru.holuhoev.social_network.core.domain.repo;
 
 
 import ru.holuhoev.social_network.core.domain.entity.Friend;
@@ -12,4 +12,5 @@ public interface FriendRepository {
 
     void create(@Nonnull final Friend friend);
 
+    boolean remove(@Nonnull final UUID firstUserId, @Nonnull final UUID secondUserId);
 }

@@ -22,4 +22,5 @@ public class UserDTO {
     private final String interests;
     @Nonnull
     private final String city;
+    private final boolean myFriend;
 }

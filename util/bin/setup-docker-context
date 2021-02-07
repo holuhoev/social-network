@@ -2,10 +2,11 @@
 set -e
 set -x
 
+ssh-add -K /Users/a17636999/.ssh/yandex-cloud
 docker context use default
 docker context rm otus-yandex
 docker context create otus-yandex \
-  --docker "host=ssh://otus-user@84.201.173.203" \
+  --docker "host=ssh://otus-user@84.201.175.244" \
 # end of command
 docker context use otus-yandex
 docker ps;

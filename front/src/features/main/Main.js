@@ -15,6 +15,7 @@ import {
   selectCurrentPage
 } from '../application/applicationSlice';
 import { Profile } from '../profile/Profile';
+import { Friends } from '../friends/Friends';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -24,7 +25,7 @@ function renderCurrentPage(currentPage) {
     case 'Profile':
       return <Profile/>;
     case 'Friends':
-      return <div>TBD</div>;
+      return <Friends/>;
     case 'Users':
     default:
       return <Users/>;

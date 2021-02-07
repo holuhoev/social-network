@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,13 +25,12 @@ public class UserConverter {
                 user.getLastName(),
                 user.getAge(),
                 user.getInterests(),
-                user.getCity(),
-                LocalDateTime.now(Clock.systemUTC())
+                user.getCity()
         );
     }
 
     @Nonnull
-    public UserDTO convertToDTO(@Nonnull final User user) {
+    public UserDTO convertToDTO(@Nonnull final User user, final boolean isFriend) {
         return new UserDTO(
                 user.getUserId(),
                 user.getUsername(),
@@ -38,12 +38,19 @@ public class UserConverter {
                 user.getLastName(),
                 user.getAge(),
                 user.getInterests(),
-                user.getCity()
+                user.getCity(),
+                isFriend
         );
     }
 
     @Nonnull
-    public List<UserDTO> convertToDTOs(@Nonnull final List<User> users) {
-        return users.stream().map(this::convertToDTO).collect(Collectors.toList());
+    public List<UserDTO> convertToDTOs(
+            @Nonnull final List<User> users,
+            @Nonnull final Set<UUID> friendsUserIds
+    ) {
+        return users
+                .stream()
+                .map(user -> convertToDTO(user, friendsUserIds.contains(user.getUserId())))
+                .collect(Collectors.toList());
     }
 }

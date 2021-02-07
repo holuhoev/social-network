@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.holuhoev.social_network.core.domain.entity.User;
-import ru.holuhoev.social_network.core.domain.port.UserRepository;
+import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 
 import javax.annotation.Nonnull;
 import java.sql.ResultSet;
@@ -53,15 +53,15 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> loadFriendUsers(@Nonnull final UUID userId) {
         return jdbcTemplate.query(
-                "SELECT * " +
+                "SELECT users.* " +
                 "FROM users " +
                 "         JOIN friends f ON users.user_id = f.from_user_id " +
-                "WHERE to_user_id = user_id " +
+                "WHERE to_user_id = :user_id " +
                 "UNION " +
-                "SELECT * " +
+                "SELECT users.* " +
                 "FROM users " +
                 "         JOIN friends f2 ON users.user_id = f2.to_user_id " +
-                "WHERE from_user_id = user_id;",
+                "WHERE from_user_id = :user_id",
                 new MapSqlParameterSource().addValue("user_id", userId.toString()),
                 this::mapRow
         );
@@ -107,8 +107,7 @@ public class UserRepositoryImpl implements UserRepository {
                 .addValue("password", user.getPassword())
                 .addValue("age", user.getAge())
                 .addValue("interests", user.getInterests())
-                .addValue("city", user.getCity())
-                .addValue("create_ts", user.getCreateTs());
+                .addValue("city", user.getCity());
     }
 
 
@@ -121,8 +120,7 @@ public class UserRepositoryImpl implements UserRepository {
                 rs.getString("last_name"),
                 rs.getInt("age"),
                 rs.getString("interests"),
-                rs.getString("city"),
-                rs.getTimestamp("create_ts").toLocalDateTime()
+                rs.getString("city")
         );
     }
 }

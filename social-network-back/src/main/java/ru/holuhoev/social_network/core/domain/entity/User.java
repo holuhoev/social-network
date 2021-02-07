@@ -25,6 +25,4 @@ public class User {
     private final String interests;
     @Nonnull
     private final String city;
-    @Nonnull
-    private final LocalDateTime createTs;
 }

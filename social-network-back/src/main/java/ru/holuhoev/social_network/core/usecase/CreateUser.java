@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.holuhoev.social_network.core.domain.entity.User;
 import ru.holuhoev.social_network.core.domain.enums.AppErrorCode;
 import ru.holuhoev.social_network.core.domain.exception.AppRuntimeException;
-import ru.holuhoev.social_network.core.domain.port.UserRepository;
+import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -58,8 +58,7 @@ public class CreateUser {
                 user.getLastName(),
                 user.getAge(),
                 user.getInterests(),
-                user.getCity(),
-                user.getCreateTs()
+                user.getCity()
         );
     }
 
