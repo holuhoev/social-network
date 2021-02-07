@@ -1,11 +1,22 @@
 #!/bin/bash
 set -e
 MY_DIR=$(cd "$(dirname "$0")"/..; pwd)
+DISTRIBUTION_DIR=$(
+  cd "${MY_DIR}"/..
+  pwd
+)
+PROJECT_DIR=$(
+  cd "${DISTRIBUTION_DIR}"/..
+  pwd
+)
 
 cd "${MY_DIR}"
 
+docker build -t otus-hl-tarantool "${DISTRIBUTION_DIR}/tarantool-image"
+docker build -t otus-hl-mysql-tarantool-replicator "${DISTRIBUTION_DIR}/mysql-tarantool-replicator-image"
+
 set -x
-docker-compose down --remove-orphans;
+docker-compose down;
 docker-compose build;
 docker-compose up -d;
 docker-compose logs --follow mysql_social_network_flyway;
