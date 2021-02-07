@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { deleteReq, get, post } from '../../client/api';
+import { pageSelected } from '../application/applicationSlice';
 
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
@@ -30,6 +31,9 @@ export const usersSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    [pageSelected]: (state, action) => {
+      state.status = 'idle';
+    },
     [fetchUsers.pending]: (state, action) => {
       state.status = 'loading';
     },

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { get } from '../../client/api';
 import { addFriend, removeFriend } from '../users/usersSlice';
+import { pageSelected } from '../application/applicationSlice';
 
 
 export const fetchFriends = createAsyncThunk('friends/myFriends', async () => {
@@ -17,6 +18,9 @@ export const friendsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
+    [pageSelected]: (state, action) => {
+      state.status = 'idle';
+    },
     [fetchFriends.pending]: (state, action) => {
       state.status = 'loading';
     },
