@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { get } from '../../client/api';
 import { addFriend, removeFriend } from '../users/usersSlice';
 import { pageSelected } from '../application/applicationSlice';
+import {client} from '../../client/api';
 
 
 export const fetchFriends = createAsyncThunk('friends/myFriends', async () => {
-  const response = await get('/users/myFriends');
+  const response = await client.get('/users/myFriends');
   return response.data;
 });
 

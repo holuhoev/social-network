@@ -1,39 +1,51 @@
-const commonHeaders = (withoutAuth = false) => {
-
-  if (withoutAuth) {
-    return {};
-  }
-
-  return {
-    'Authorization':  extractToken()
-  }
-};
-
 export const extractToken = () => {
   return localStorage.getItem('accessToken');
 };
 
-export const get = url => {
-  return fetch(url, {
-    method: 'GET',
-    headers: commonHeaders()
-  }).then((response) => response.json());
+const authorizationHeader = (withoutAuth) => {
+  if (withoutAuth) {
+    return {}
+  }
+
+  return { 'Authorization': extractToken() }
 };
 
-export const deleteReq = url => {
-  return fetch(url, {
-    method: 'DELETE',
-    headers: commonHeaders()
-  }).then((response) => response.json());
+export async function client(endpoint, { method, body, withoutAuth } = {}) {
+  const headers = {
+    'Content-Type': 'application/json',
+    ...authorizationHeader(withoutAuth)
+  };
+
+  const config = {
+    method: method,
+    headers: headers
+  };
+
+  if (body) {
+    config.body = JSON.stringify(body)
+  }
+
+  let data;
+  try {
+    const response = await window.fetch(endpoint, config);
+    data = await response.json();
+    if (data.success) {
+      return data;
+    }
+    throw new Error("Error")
+  } catch (err) {
+    return Promise.reject(data.error ? data.error : err.message)
+  }
+}
+
+client.get = function (endpoint) {
+  return client(endpoint, { method: 'GET' })
 };
 
-export const post = (url, body, withoutAuth = false) => {
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      ...commonHeaders(withoutAuth),
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  }).then((response) => response.json());
+client.post = function (endpoint, body = {}, withoutAuth = false) {
+  return client(endpoint, { method: 'POST', body, withoutAuth })
+};
+
+client.delete = function (endpoint, body = {}) {
+  return client(endpoint, { method: 'DELETE', body })
 };

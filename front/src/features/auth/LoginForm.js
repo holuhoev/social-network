@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Button, Typography, Form, Input, Modal } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Form, Input, Modal, Typography } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import './LoginForm.css'
-import { login } from './authSlice';
+import { login, selectLoginStatus } from './authSlice';
 
 const { Title } = Typography;
 
@@ -18,6 +18,7 @@ export function LoginForm() {
   const [visible, setVisible] = React.useState(false);
   const [confirmLoading, setConfirmLoading] = React.useState(false);
   const [modalText, setModalText] = React.useState('Content of the modal');
+  const loginStatus = useSelector(selectLoginStatus);
 
   const showModal = () => {
     setVisible(true);
@@ -83,10 +84,12 @@ export function LoginForm() {
             type="primary"
             htmlType="submit"
             className="login-form-button"
+            loading={loginStatus === 'loading'}
           >
             Log in
           </Button>
-          Or <Button style={{paddingLeft: 0}} type="link" onClick={showModal}>register now!</Button>
+          Or <Button style={{ paddingLeft: 0 }} type="link" onClick={showModal}>register
+          now!</Button>
         </Form.Item>
         <Modal
           title="Title"

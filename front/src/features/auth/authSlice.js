@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { extractToken, post } from '../../client/api';
+import { extractToken, client } from '../../client/api';
+import { fetchUsers } from '../users/usersSlice';
 
 export const login = createAsyncThunk('auth/login', async ({ username, password }) => {
-  const response = await post('/login', {
+  const response = await client.post('/login', {
     username: username,
     password: password
   }, true);
+
 
   if (!response.success) {
     return Promise.reject('');
@@ -23,7 +25,11 @@ export const authSlice = createSlice({
     error: null,
     isLoggedIn: !!extractToken()
   },
-  reducers: {},
+  reducers: {
+    logout: (state, action) => {
+      state.isLoggedIn = false;
+    }
+  },
   extraReducers: {
     [login.pending]: (state) => {
       state.status = 'loading';
@@ -36,10 +42,17 @@ export const authSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
       state.isLoggedIn = false;
-    }
+    },
+    [fetchUsers.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+      state.isLoggedIn = false;
+    },
   }
 });
 
 export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectLoginStatus = state => state.auth.status;
+export const logout = authSlice.actions.logout;
 
 export default authSlice.reducer;

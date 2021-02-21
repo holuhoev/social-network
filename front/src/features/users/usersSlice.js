@@ -1,22 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { deleteReq, get, post } from '../../client/api';
+import { client } from '../../client/api';
 import { pageSelected } from '../application/applicationSlice';
 
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await get('/users');
+  const response = await client.get('/users');
   return response.data;
 
 });
 
 export const addFriend = createAsyncThunk('users/addFriend', async (userId, thunkAPI) => {
-  const response = await post('users/addFriend/' + userId);
+  const response = await client.post('users/addFriend/' + userId);
   return { ...response.data, userId: userId };
 });
 
 
 export const removeFriend = createAsyncThunk('users/removeFriend', async (userId, thunkAPI) => {
-  const response = await deleteReq('/users/friends/remove/' + userId);
+  const response = await client.delete('/users/friends/remove/' + userId);
   return { ...response.data, userId: userId };
 });
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Main.css';
-import { Breadcrumb, Layout, Menu, Typography } from 'antd';
+import { Breadcrumb, Layout, Menu, Typography, Button } from 'antd';
 
 import {
   UserOutlined,
   UsergroupAddOutlined,
-  UserAddOutlined,
+  LogoutOutlined,
   SmileFilled
 } from '@ant-design/icons';
 import { Users } from '../users/Users';
@@ -16,6 +16,7 @@ import {
 } from '../application/applicationSlice';
 import { Profile } from '../profile/Profile';
 import { Friends } from '../friends/Friends';
+import { logout } from '../auth/authSlice';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -37,7 +38,15 @@ function Main() {
   const currentPage = useSelector(selectCurrentPage);
 
   const handleClickMenu = e => {
+    if (e.key === 'Logout') {
+      return;
+    }
     dispatch(pageSelected(e.key))
+  };
+
+  const handleLogoutClick = e => {
+    localStorage.clear();
+    dispatch(logout())
   };
 
   return (
@@ -59,8 +68,15 @@ function Main() {
               <Menu.Item key='Friends' icon={<UsergroupAddOutlined/>}>
                 Friends
               </Menu.Item>
-              <Menu.Item key='Profile' icon={<SmileFilled />}>
+              <Menu.Item key='Profile' icon={<SmileFilled/>}>
                 Profile
+              </Menu.Item>
+              <Menu.Item
+                key='Logout'
+                icon={<LogoutOutlined/>}
+                onClick={handleLogoutClick}
+              >
+                Logout
               </Menu.Item>
             </Menu>
           </Sider>

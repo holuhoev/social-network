@@ -1,7 +1,6 @@
 package ru.holuhoev.social_network.application.security.jwt;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -70,11 +69,6 @@ public class JwtTokenProvider {
     }
 
     void validateToken(final String token) {
-
-        final Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
-        if (claims.getBody().getExpiration().before(new Date())) {
-            throw new IllegalArgumentException("Token is expired");
-        }
+        Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
     }
 }
