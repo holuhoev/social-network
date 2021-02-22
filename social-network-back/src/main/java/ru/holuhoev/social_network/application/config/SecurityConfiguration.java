@@ -45,7 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 SWAGGER_UI_HTML,
                 SWAGGER_RESOURCES,
                 ACTUATOR,
-                CONFIG_PROPS
+                CONFIG_PROPS,
+                "/users/search**"
         };
 
 

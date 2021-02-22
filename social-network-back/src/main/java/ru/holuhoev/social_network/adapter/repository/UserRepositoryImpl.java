@@ -109,8 +109,8 @@ public class UserRepositoryImpl implements UserRepository {
                 "     AND first_name LIKE :first_name " +
                 "ORDER BY user_id",
                 new MapSqlParameterSource()
-                        .addValue("last_name", lastName)
-                        .addValue("first_name", firstName),
+                        .addValue("last_name", lastName + "%")
+                        .addValue("first_name", firstName + "%"),
                 this::mapRow
         );
     }
