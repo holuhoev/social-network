@@ -119,10 +119,12 @@ public class UsersController {
 
 
     @GetMapping("/search")
-    public List<BaseDTO<UserDTO>> searchUsers(
-            @RequestParam final String firstName,
-            @RequestParam final String lastName
+    public BaseDTO<List<UserDTO>> searchUsers(
+            @RequestParam final String lastName,
+            @RequestParam final String firstName
     ) {
-        return Collections.emptyList();
+        final List<User> users = findUser.findByLastNameAndFirstName(lastName, firstName);
+
+        return BaseDTO.success(userConverter.convertToDTOs(users, Collections.emptySet()));
     }
 }

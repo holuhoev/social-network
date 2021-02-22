@@ -35,4 +35,9 @@ public class FindUser {
     public Optional<User> loadOptUserByUsername(@Nonnull final String username) {
         return userRepository.loadOptByUsername(username);
     }
+
+    @Nonnull
+    public List<User> findByLastNameAndFirstName(@Nonnull final String lastName, @Nonnull final String firstName) {
+        return userRepository.findByLastNameAndFirstName(lastName, firstName);
+    }
 }

@@ -10,6 +10,7 @@ import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 import javax.annotation.Nonnull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -94,6 +95,23 @@ public class UserRepositoryImpl implements UserRepository {
                 users.stream()
                      .map(this::doMapping)
                      .toArray(MapSqlParameterSource[]::new)
+        );
+    }
+
+    @Nonnull
+    @Override
+    public List<User> findByLastNameAndFirstName(@Nonnull final String lastName, @Nonnull final String firstName) {
+        return jdbcTemplate.query(
+                "SELECT * " +
+                "FROM users " +
+                "WHERE TRUE " +
+                "     AND last_name LIKE :last_name " +
+                "     AND first_name LIKE :first_name " +
+                "ORDER BY user_id",
+                new MapSqlParameterSource()
+                        .addValue("last_name", lastName)
+                        .addValue("first_name", firstName),
+                this::mapRow
         );
     }
 
