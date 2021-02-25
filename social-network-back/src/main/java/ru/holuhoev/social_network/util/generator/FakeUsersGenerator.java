@@ -6,11 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 import ru.holuhoev.social_network.core.domain.entity.User;
+import ru.holuhoev.social_network.core.domain.enums.Gender;
 import ru.holuhoev.social_network.core.usecase.CreateUser;
 
 import java.text.DecimalFormat;
-import java.time.Clock;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -77,7 +76,8 @@ public class FakeUsersGenerator {
                 faker.name().lastName(),
                 faker.number().numberBetween(18, 45),
                 faker.job().keySkills(),
-                faker.address().city()
+                faker.address().city(),
+                Gender.MALE
         );
     }
 }

@@ -7,7 +7,7 @@ CREATE TABLE users (
     interests  VARCHAR(255) NOT NULL,
     city       VARCHAR(255) NOT NULL,
     age        INT          NOT NULL,
-    create_ts  TIMESTAMP    NOT NULL
+    gender        VARCHAR(1)   NOT NULL DEFAULT 'M'
 );
 
 

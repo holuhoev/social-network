@@ -1,12 +1,13 @@
 
-### TODO:
+### TODO
 - ~~ExceptionHandler~~ 
 - ~~Spring Security~~
-- HW1: Frontend
-   - Редактирование профиля
-   - Страница регистрации
-   - login показывать ошибку
-   - Настроить сборку && nginx
+- HW_01: Frontend
+   - login показывать ошибку front 
+   - Настроить сборку && nginx devops
+   - ~~Редактирование профиля back~~
+   - ~~Редактирование профиля front~~
+   - ~~Страница регистрации front~~
    - ~~Обрабытывать ошибку token expired~~
    - ~~Logout~~
    - ~~Добавить в друзья~~
@@ -16,7 +17,9 @@
    - ~~Выяснить что за поебота с пустом телом~~
    - ~~Страница всех пользователей~~
    - ~~Токен в куки положить~~
-- HW2: Indices and wrk load testing
+- HW_02: Indices and wrk load testing
+   - ~~Замерить && индексы~~
+   - Отчет
 
 ### Swagger
 http://localhost:8080/swagger-ui.html#

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,10 +18,12 @@ import ru.holuhoev.social_network.core.usecase.AddFriend;
 import ru.holuhoev.social_network.core.usecase.CreateUser;
 import ru.holuhoev.social_network.core.usecase.FindUser;
 import ru.holuhoev.social_network.core.usecase.RemoveFriend;
+import ru.holuhoev.social_network.core.usecase.UpdateUser;
 import ru.holuhoev.social_network.web.converters.UserConverter;
 import ru.holuhoev.social_network.web.dto.UserDTO;
 import ru.holuhoev.social_network.web.dto.base.BaseDTO;
 import ru.holuhoev.social_network.web.dto.input.CreateUserInputDTO;
+import ru.holuhoev.social_network.web.dto.input.UpdateUserInputDTO;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -36,6 +39,7 @@ public class UsersController {
 
     private final CreateUser createUser;
     private final AddFriend addFriend;
+    private final UpdateUser updateUser;
     private final FindUser findUser;
     private final RemoveFriend removeFriend;
     private final UserConverter userConverter;
@@ -52,6 +56,29 @@ public class UsersController {
         final UserDTO dto = userConverter.convertToDTO(createdUser, false);
 
         return BaseDTO.success(dto);
+    }
+
+    @Transactional
+    @PutMapping("/updateProfile")
+    public BaseDTO<UserDTO> updateProfile(@RequestBody @Nonnull final UpdateUserInputDTO updateUserInputDTO) {
+        final UUID userId = clientInfoService.loadClientInfo().getUserId();
+
+        final User currentUser = findUser.loadUserById(userId);
+        final User user = new User(
+                userId,
+                currentUser.getUsername(),
+                currentUser.getPassword(),
+                updateUserInputDTO.getFirstName(),
+                updateUserInputDTO.getLastName(),
+                updateUserInputDTO.getAge(),
+                updateUserInputDTO.getInterests(),
+                updateUserInputDTO.getCity(),
+                currentUser.getGender()
+        );
+
+        final User updatedUser = updateUser.update(user);
+
+        return BaseDTO.success(userConverter.convertToDTO(updatedUser, false));
     }
 
     @Transactional

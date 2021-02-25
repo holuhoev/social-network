@@ -25,7 +25,8 @@ public class UserConverter {
                 user.getLastName(),
                 user.getAge(),
                 user.getInterests(),
-                user.getCity()
+                user.getCity(),
+                user.getGender()
         );
     }
 

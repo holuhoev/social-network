@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { extractToken, client } from '../../client/api';
 import { fetchUsers } from '../users/usersSlice';
 
-export const login = createAsyncThunk('auth/login', async ({ username, password }) => {
+
+export async function postLogin(username, password) {
   const response = await client.post('/login', {
     username: username,
     password: password
@@ -16,7 +17,21 @@ export const login = createAsyncThunk('auth/login', async ({ username, password 
   localStorage.setItem('accessToken', response.data.accessToken);
 
   return response.data.accessToken;
+}
+
+export const login = createAsyncThunk('auth/login', async ({ username, password }) => {
+  return await postLogin(username, password);
 });
+
+
+export const register = createAsyncThunk("/profile/register", async (user) => {
+  const response = await client.post("/users/register", user, true);
+  const {username, password} = user;
+
+  const loginResult = await postLogin(username, password);
+  return response.data;
+});
+
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -39,6 +54,18 @@ export const authSlice = createSlice({
       state.isLoggedIn = true;
     },
     [login.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+      state.isLoggedIn = false;
+    },
+    [register.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [register.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      state.isLoggedIn = true;
+    },
+    [register.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.error.message;
       state.isLoggedIn = false;

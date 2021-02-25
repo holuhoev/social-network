@@ -49,3 +49,7 @@ client.post = function (endpoint, body = {}, withoutAuth = false) {
 client.delete = function (endpoint, body = {}) {
   return client(endpoint, { method: 'DELETE', body })
 };
+
+client.put = function (endpoint, body = {}) {
+  return client(endpoint, { method: 'PUT', body })
+};
