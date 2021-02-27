@@ -14,7 +14,7 @@ import ru.holuhoev.social_network.web.dto.input.fake.GenerateFakeUsersInputDTO;
 import javax.annotation.Nonnull;
 
 @RestController
-@RequestMapping("/fake/users")
+@RequestMapping("/api/fake/users")
 @AllArgsConstructor
 public class FakeUsersController {
 

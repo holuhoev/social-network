@@ -21,8 +21,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String SWAGGER_UI = "/webjars/springfox-swagger-ui/**";
     private static final String SWAGGER_UI_HTML = "/swagger-ui.html/**";
     private static final String SWAGGER_RESOURCES = "/swagger-resources/**";
-    private static final String CREATE_USER = "/users/register";
-    private static final String LOGIN_ENDPOINT = "/login";
+    private static final String CREATE_USER = "/api/users/register";
+    private static final String LOGIN_ENDPOINT = "/api/login";
     private static final String ACTUATOR = "/actuator/**";
     private static final String CONFIG_PROPS = "/configprops";
 

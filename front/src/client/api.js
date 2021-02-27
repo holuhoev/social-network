@@ -27,7 +27,7 @@ export async function client(endpoint, { method, body, withoutAuth } = {}) {
 
   let data;
   try {
-    const response = await window.fetch(endpoint, config);
+    const response = await window.fetch('/services/rest' + endpoint, config);
     data = await response.json();
     if (data.success) {
       return data;
