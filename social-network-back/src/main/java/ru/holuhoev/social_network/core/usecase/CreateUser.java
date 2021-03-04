@@ -20,6 +20,7 @@ public class CreateUser {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Nonnull
     public User create(@Nonnull final User user) {
 
         final String username = user.getUsername();
@@ -47,6 +48,7 @@ public class CreateUser {
         );
     }
 
+    @Nonnull
     private User encodePassword(final User user) {
         final String encodedPassword = passwordEncoder.encode(user.getPassword());
 
@@ -58,7 +60,8 @@ public class CreateUser {
                 user.getLastName(),
                 user.getAge(),
                 user.getInterests(),
-                user.getCity()
+                user.getCity(),
+                user.getGender()
         );
     }
 

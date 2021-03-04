@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 @AllArgsConstructor
 public class LoginController {
 

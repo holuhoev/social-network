@@ -10,7 +10,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
 });
 
 export const addFriend = createAsyncThunk('users/addFriend', async (userId, thunkAPI) => {
-  const response = await client.post('users/addFriend/' + userId);
+  const response = await client.post('/users/addFriend/' + userId);
   return { ...response.data, userId: userId };
 });
 

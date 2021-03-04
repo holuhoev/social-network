@@ -3,28 +3,20 @@ package ru.holuhoev.social_network.web.dto.input;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ru.holuhoev.social_network.core.domain.enums.Gender;
 
 import javax.annotation.Nonnull;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserInputDTO {
-    @Nonnull
-    private String username;
+@AllArgsConstructor
+public class UpdateUserInputDTO {
     @Nonnull
     private String firstName;
     @Nonnull
     private String lastName;
     private int age;
     @Nonnull
-    private String password;
-    @Nonnull
     private String interests;
     @Nonnull
     private String city;
-    @Nonnull
-    private Gender gender;
-
 }

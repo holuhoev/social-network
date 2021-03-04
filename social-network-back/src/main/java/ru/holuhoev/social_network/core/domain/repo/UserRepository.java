@@ -26,4 +26,6 @@ public interface UserRepository {
     void insertBatch(@Nonnull final List<User> users);
 
     List<User> findByLastNameAndFirstName(@Nonnull final String lastName, @Nonnull final String firstName);
+
+    void update(@Nonnull final User user);
 }

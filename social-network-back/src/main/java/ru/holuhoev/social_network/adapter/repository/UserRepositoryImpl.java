@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import ru.holuhoev.social_network.core.domain.entity.User;
+import ru.holuhoev.social_network.core.domain.enums.Gender;
 import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 
 import javax.annotation.Nonnull;
@@ -43,8 +44,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void create(@Nonnull final User user) {
         jdbcTemplate.update(
-                "INSERT INTO users (user_id, username, password, first_name, last_name, interests, city, age, create_ts) " +
-                "VALUES (:user_id, :username, :password, :first_name, :last_name, :interests,  :city, :age, :create_ts)",
+                "INSERT INTO users (user_id, username, password, first_name, last_name, interests, city, age, gender) " +
+                "VALUES (:user_id, :username, :password, :first_name, :last_name, :interests,  :city, :age, :gender)",
                 doMapping(user)
         );
     }
@@ -115,6 +116,26 @@ public class UserRepositoryImpl implements UserRepository {
         );
     }
 
+    @Override
+    public void update(@Nonnull final User user) {
+        jdbcTemplate.update(
+                "UPDATE users " +
+                "set last_name = :last_name, " +
+                "    first_name = :first_name, " +
+                "    age = :age, " +
+                "    interests = :interests, " +
+                "    city = :city " +
+                "WHERE user_id = :user_id ",
+                new MapSqlParameterSource()
+                .addValue("user_id", user.getUserId().toString())
+                .addValue("last_name", user.getLastName())
+                .addValue("first_name", user.getFirstName())
+                .addValue("age", user.getAge())
+                .addValue("interests", user.getInterests())
+                .addValue("city", user.getCity())
+        );
+    }
+
 
     private MapSqlParameterSource doMapping(final User user) {
         return new MapSqlParameterSource()
@@ -125,6 +146,7 @@ public class UserRepositoryImpl implements UserRepository {
                 .addValue("password", user.getPassword())
                 .addValue("age", user.getAge())
                 .addValue("interests", user.getInterests())
+                .addValue("gender", user.getGender().getId())
                 .addValue("city", user.getCity());
     }
 
@@ -138,7 +160,8 @@ public class UserRepositoryImpl implements UserRepository {
                 rs.getString("last_name"),
                 rs.getInt("age"),
                 rs.getString("interests"),
-                rs.getString("city")
+                rs.getString("city"),
+                Gender.byId(rs.getString("gender"))
         );
     }
 }

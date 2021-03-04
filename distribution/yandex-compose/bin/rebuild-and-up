@@ -22,16 +22,28 @@ echo "DOCKER_TAG=${DOCKER_TAG}" > "${ENV_FILE}";
 docker context use default
 #docker login -u holuhoev -p 7134817
 
+# build flyway
 docker build -t otus-hl-db-migration "${DISTRIBUTION_DIR}/flyway-image"
+
+# build backend
 mvn clean install -T1C -DskipTests -f "${PROJECT_DIR}/social-network-back/pom.xml"
 cp "${PROJECT_DIR}/social-network-back/target/social-network-back-0.0.1-SNAPSHOT.jar" "${DISTRIBUTION_DIR}/spring-boot-app-images/backend/"
 docker build -t otus-hl-backend "${DISTRIBUTION_DIR}/spring-boot-app-images/backend"
 
+# build frontend
+cd "${PROJECT_DIR}/front"
+yarn build
+rm -rf "${DISTRIBUTION_DIR}/frontend-images/build"
+cp -R "$PROJECT_DIR/front/build" "${DISTRIBUTION_DIR}/frontend-images/build"
+docker build -t otus-hl-frontend "${DISTRIBUTION_DIR}/frontend-images"
+# end of command
 
 docker tag otus-hl-db-migration:latest "holuhoev/otus-hl-db-migration:${DOCKER_TAG}"
 docker tag otus-hl-backend:latest "holuhoev/otus-hl-backend:${DOCKER_TAG}"
+docker tag otus-hl-frontend:latest "holuhoev/otus-hl-frontend:${DOCKER_TAG}"
 
 docker push "holuhoev/otus-hl-backend:${DOCKER_TAG}"
+docker push "holuhoev/otus-hl-frontend:${DOCKER_TAG}"
 docker push "holuhoev/otus-hl-db-migration:${DOCKER_TAG}"
 
 cd "${MY_DIR}"

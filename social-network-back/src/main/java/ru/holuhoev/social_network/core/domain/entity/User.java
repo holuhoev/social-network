@@ -2,6 +2,7 @@ package ru.holuhoev.social_network.core.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import ru.holuhoev.social_network.core.domain.enums.Gender;
 
 import javax.annotation.Nonnull;
 import java.time.LocalDateTime;
@@ -25,4 +26,6 @@ public class User {
     private final String interests;
     @Nonnull
     private final String city;
+    @Nonnull
+    private final Gender gender;
 }
