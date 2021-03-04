@@ -2,7 +2,7 @@
 set -e
 set -x
 
-COUNT=1000
+COUNT=1000000
 
 #84.201.173.203
 curl -X POST "http://localhost:8080/fake/users/generate" \
