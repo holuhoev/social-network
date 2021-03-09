@@ -70,7 +70,7 @@ SELECT count(DISTINCT last_name) FROM users;
 ```mysql
 select last_name, count(1) as c FROM users GROUP BY last_name order by c desc;
 ```
-![FirstName](./files/first_name.png)
+![FirstName](./files/last_name.png)
 
 
 #### first_name
