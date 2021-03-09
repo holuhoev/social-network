@@ -140,4 +140,4 @@ Transfer/sec:    521.73KB
 ## 6. Графики
 ![Latency](./files/latency.png)
 
-![Req_Sec](./files/req_sec.png)
+![Req_Sec](./files/req_Sec.png)
