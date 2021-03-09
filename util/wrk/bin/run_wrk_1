@@ -1,1 +1,6 @@
-wrk -t1 -c1 -d30s -s ../gen_and_search.lua --timeout 100s  "http://127.0.0.1:8080"
+#!/bin/bash
+set -e
+WRK_DIR=$(cd "$(dirname "$0")"/..; pwd)
+
+set -x
+wrk -t1 -c1 -d30s -s "${WRK_DIR}/gen_and_search.lua" --timeout 100s  "http://127.0.0.1:8080"

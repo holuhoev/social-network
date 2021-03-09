@@ -106,8 +106,8 @@ public class UserRepositoryImpl implements UserRepository {
                 "SELECT * " +
                 "FROM users " +
                 "WHERE TRUE " +
-                "     AND last_name LIKE :last_name " +
                 "     AND first_name LIKE :first_name " +
+                "     AND last_name LIKE :last_name " +
                 "ORDER BY user_id",
                 new MapSqlParameterSource()
                         .addValue("last_name", lastName + "%")
