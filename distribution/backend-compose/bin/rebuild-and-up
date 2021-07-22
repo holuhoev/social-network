@@ -8,4 +8,4 @@ set -x
 docker-compose down --remove-orphans -v;
 docker-compose build;
 docker-compose up -d;
-docker-compose logs --follow mysql_social_network_flyway;
+docker-compose logs --follow postgres_flyway;

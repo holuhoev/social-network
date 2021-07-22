@@ -15,23 +15,13 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class CreateUser {
+public class CreateUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Nonnull
     public User create(@Nonnull final User user) {
-
-        final String username = user.getUsername();
-
-        if (userRepository.loadOptByUsername(username).isPresent()) {
-            throw new AppRuntimeException(
-                    AppErrorCode.USER_ALREADY_EXISTS,
-                    String.format("User with username %s is already exists", username)
-            );
-        }
-
         final User userToCreate = encodePassword(user);
 
         userRepository.create(userToCreate);
@@ -39,14 +29,6 @@ public class CreateUser {
         return userToCreate;
     }
 
-    public void createBatch(@Nonnull final List<User> users) {
-
-        userRepository.insertBatch(
-                users.stream()
-                     .map(this::encodePassword)
-                     .collect(Collectors.toList())
-        );
-    }
 
     @Nonnull
     private User encodePassword(final User user) {

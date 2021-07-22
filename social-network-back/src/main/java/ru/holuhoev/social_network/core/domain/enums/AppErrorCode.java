@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum AppErrorCode {
     USER_ALREADY_EXISTS("Пользователь с таким логином уже существует"),
-    BAD_PARAMS("Некорректные входные данные"),
     TOKEN_EXPIRED("Истек срок действия токена"),
 
     ;

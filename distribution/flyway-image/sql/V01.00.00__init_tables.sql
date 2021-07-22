@@ -10,15 +10,3 @@ CREATE TABLE users (
     gender        VARCHAR(1)   NOT NULL DEFAULT 'M'
 );
 
-
-CREATE TABLE friends (
-    from_user_id VARCHAR(36) NOT NULL,
-    to_user_id   VARCHAR(36) NOT NULL,
-
-    FOREIGN KEY (from_user_id)
-        REFERENCES users(user_id),
-    FOREIGN KEY (to_user_id)
-        REFERENCES users(user_id)
-);
-
-

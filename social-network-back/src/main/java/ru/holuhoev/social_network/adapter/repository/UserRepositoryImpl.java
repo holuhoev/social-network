@@ -11,8 +11,6 @@ import ru.holuhoev.social_network.core.domain.repo.UserRepository;
 import javax.annotation.Nonnull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,7 +38,6 @@ public class UserRepositoryImpl implements UserRepository {
         ).stream().findFirst();
     }
 
-
     @Override
     public void create(@Nonnull final User user) {
         jdbcTemplate.update(
@@ -51,95 +48,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
 
-    @Nonnull
-    @Override
-    public List<User> loadFriendUsers(@Nonnull final UUID userId) {
-        return jdbcTemplate.query(
-                "SELECT users.* " +
-                "FROM users " +
-                "         JOIN friends f ON users.user_id = f.from_user_id " +
-                "WHERE to_user_id = :user_id " +
-                "UNION " +
-                "SELECT users.* " +
-                "FROM users " +
-                "         JOIN friends f2 ON users.user_id = f2.to_user_id " +
-                "WHERE from_user_id = :user_id",
-                new MapSqlParameterSource().addValue("user_id", userId.toString()),
-                this::mapRow
-        );
-    }
-
-
-    @Nonnull
-    @Override
-    public List<User> loadUsers() {
-        return jdbcTemplate.query(
-                "SELECT * FROM users LIMIT 30",
-                this::mapRow
-        );
-    }
-
-
-    @Nonnull
-    @Override
-    public User loadById(@Nonnull final UUID userId) {
-        return jdbcTemplate.query(
-                "SELECT * FROM users WHERE user_id = :user_id",
-                new MapSqlParameterSource().addValue("user_id", userId.toString()),
-                this::mapRow
-        ).get(0);
-    }
-
-    @Override
-    public void insertBatch(@Nonnull final List<User> users) {
-        inserter.executeBatch(
-                users.stream()
-                     .map(this::doMapping)
-                     .toArray(MapSqlParameterSource[]::new)
-        );
-    }
-
-    @Nonnull
-    @Override
-    public List<User> findByLastNameAndFirstName(@Nonnull final String lastName, @Nonnull final String firstName) {
-        return jdbcTemplate.query(
-                "SELECT * " +
-                "FROM users " +
-                "WHERE TRUE " +
-                "     AND first_name LIKE :first_name " +
-                "     AND last_name LIKE :last_name " +
-                "ORDER BY user_id",
-                new MapSqlParameterSource()
-                        .addValue("last_name", lastName + "%")
-                        .addValue("first_name", firstName + "%"),
-                this::mapRow
-        );
-    }
-
-    @Override
-    public void update(@Nonnull final User user) {
-        jdbcTemplate.update(
-                "UPDATE users " +
-                "set last_name = :last_name, " +
-                "    first_name = :first_name, " +
-                "    age = :age, " +
-                "    interests = :interests, " +
-                "    city = :city " +
-                "WHERE user_id = :user_id ",
-                new MapSqlParameterSource()
-                .addValue("user_id", user.getUserId().toString())
-                .addValue("last_name", user.getLastName())
-                .addValue("first_name", user.getFirstName())
-                .addValue("age", user.getAge())
-                .addValue("interests", user.getInterests())
-                .addValue("city", user.getCity())
-        );
-    }
 
 
     private MapSqlParameterSource doMapping(final User user) {
         return new MapSqlParameterSource()
-                .addValue("user_id", user.getUserId().toString())
+                .addValue("user_id", user.getUserId())
                 .addValue("username", user.getUsername())
                 .addValue("first_name", user.getFirstName())
                 .addValue("last_name", user.getLastName())
